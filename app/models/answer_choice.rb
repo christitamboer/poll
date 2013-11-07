@@ -2,6 +2,8 @@ class AnswerChoice < ActiveRecord::Base
 
   validates :question, :text, :presence => true
 
+  attr_accessible :question, :text, :responses, :question_id
+
   belongs_to(
     :question,
     :class_name => "Question",
@@ -10,7 +12,7 @@ class AnswerChoice < ActiveRecord::Base
   )
 
   has_many(
-    :responses,
+    :responses, :dependent => :destroy,
     :class_name => "Response",
     :foreign_key => :answer_choice_id,
     :primary_key => :id

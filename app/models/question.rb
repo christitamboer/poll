@@ -1,12 +1,13 @@
 class Question < ActiveRecord::Base
 
   validates :poll, :text, :presence => true
+  attr_accessible :text, :poll, :answer_choices, :poll_id
 
   has_many(
     :answer_choices,
     :class_name => "AnswerChoice",
     :foreign_key => :question_id,
-    :primary_key => :id
+    :primary_key => :id, :dependent => :destroy
   )
 
   belongs_to(

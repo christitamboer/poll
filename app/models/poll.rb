@@ -1,6 +1,7 @@
 class Poll < ActiveRecord::Base
 
   validates :author, :presence => true
+  attr_accessible :author, :title, :questions, :user_id
 
   belongs_to(
     :author,
@@ -10,7 +11,7 @@ class Poll < ActiveRecord::Base
   )
 
   has_many(
-    :questions,
+    :questions, :dependent => :destroy,
     :class_name => "Question",
     :foreign_key => :poll_id,
     :primary_key => :id
